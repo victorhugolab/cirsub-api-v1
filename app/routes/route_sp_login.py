@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Request, Path
-from controllers.sp_login_controller import sp_login, sp_Perfil_Login, sp_Perfil_completo
+from app.controllers.sp_login_controller import sp_login, sp_Perfil_Login, sp_Perfil_completo
 
 router = APIRouter()
 

@@ -1,8 +1,8 @@
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 from starlette.responses import Response
-from helpers.tools import get_client_ip
-from helpers.logger import  log_to_file
+from app.helpers.tools import get_client_ip
+from app.helpers.logger import  log_to_file
 
 async def log_requests(request: Request, call_next):
     if request.url.path == "/favicon.ico":

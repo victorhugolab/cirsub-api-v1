@@ -1,9 +1,9 @@
 from fastapi import Request, Path
 from helpers.tools import get_client_ip
-from database.db_helpers import ejecutar_sp
-from helpers.response_helper import success_response, error_response
-from models.persona import PersonaBase
-from helpers.logger import log_to_file
+from app.database.db_helpers import ejecutar_sp
+from app.helpers.response_helper import success_response, error_response
+from app.models.persona import PersonaBase
+from app.helpers.logger import log_to_file
 
 async def persona_controller_Personas_OT(request: Request):
     client_ip = get_client_ip(request)

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Request, Query
 from typing import Optional
-from controllers import generic_controller
+from app.ontrollers import generic_controller
 
 router = APIRouter()
 

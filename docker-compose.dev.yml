@@ -4,7 +4,7 @@ services:
   lab-service:
     build:
       context: .
-      dockerfile: Dockerfile  # Asegurate que apunte al Dockerfile arriba
+      dockerfile: Dockerfile.dev  # Asegurate que apunte al Dockerfile arriba
     container_name: api-lab-v1-dev
     env_file:
       - .env.prod
