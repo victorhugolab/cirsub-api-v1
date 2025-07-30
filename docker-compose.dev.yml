@@ -1,0 +1,22 @@
+version: '3.9'
+
+services:
+  lab-service:
+    build:
+      context: .
+      dockerfile: Dockerfile  # Asegurate que apunte al Dockerfile arriba
+    container_name: api-lab-v1-dev
+    env_file:
+      - .env.prod
+    ports:
+      - "3001:3001"
+    networks:
+      - backend
+    volumes:
+      - ./app:/app
+      - ./logs_host:/logs  # Montamos logs externos
+    command: uvicorn main:app --host 0.0.0.0 --port 3001 --reload --reload-dir /app
+
+networks:
+  backend:
+    driver: bridge

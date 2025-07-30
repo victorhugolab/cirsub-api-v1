@@ -1,0 +1,35 @@
+FROM python:3.11-slim
+
+# Instalamos dependencias del sistema (ODBC y herramientas)
+RUN apt-get update && apt-get install -y \
+    curl gnupg2 apt-transport-https ca-certificates lsb-release \
+    unixodbc unixodbc-dev odbcinst \
+    && rm -rf /var/lib/apt/lists/*
+
+# Instalamos driver ODBC de Microsoft
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
+ && curl https://packages.microsoft.com/config/debian/11/prod.list > /etc/apt/sources.list.d/mssql-release.list \
+ && apt-get update \
+ && ACCEPT_EULA=Y apt-get install -y msodbcsql18 \
+ && rm -rf /var/lib/apt/lists/*
+
+# Directorio de trabajo
+WORKDIR /app
+
+# Copiamos requirements y instalamos Python packages
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir --upgrade pip
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Instalamos watchdog para recarga en caliente
+RUN pip install --no-cache-dir watchdog
+
+# Copiamos todo el código al contenedor
+COPY . .
+
+EXPOSE 3001
+
+# Comando para desarrollo con recarga y watcher apuntando al código
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "3001", "--reload", "--reload-dir", "/app"]

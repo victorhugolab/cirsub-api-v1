@@ -1,0 +1,21 @@
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+ENVIRONMENT = os.getenv("ENVIRONMENT", "desconocido")
+
+
+DB_CONFIG = {
+    "driver": os.getenv("DB_DRIVER"),
+    "server": os.getenv("DB_HOST"),
+    "database": os.getenv("DB_NAME"),
+    "user": os.getenv("DB_USER"),
+    "password": os.getenv("DB_PASSWORD"),
+}
+
+ALLOWED_ORIGINS = [
+    "http://localhost:3000",  # por ejemplo si usás React o Angular local
+    "http://tu-dominio.com"
+]
+
+print(f"⚙️ Entorno: {ENVIRONMENT}")
