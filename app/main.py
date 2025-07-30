@@ -4,7 +4,7 @@ from fastapi import FastAPI, Request
 from starlette.middleware.cors import CORSMiddleware
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import Response  
-from settings import settings
+from app.settings import settings
 
 from routes.route_personas import router as persona_router 
 from routes.route_sp_login import router as login_router
