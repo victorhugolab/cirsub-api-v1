@@ -1,12 +1,12 @@
 from fastapi import APIRouter, Request, Path
-from app.controllers.persona_controller import (
+from  controllers.persona_controller import (
     persona_controller_Personas_OT,
     persona_controller_Persona_OU,
     persona_controller_Persona_IN,
     persona_controller_Persona_AC,
     persona_controller_Persona_EL,
 )
-from app.models.persona import PersonaCreate, PersonaUpdate
+from  models.persona import PersonaCreate, PersonaUpdate
 
 router = APIRouter()
 

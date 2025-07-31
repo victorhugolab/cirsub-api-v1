@@ -6,7 +6,7 @@ import os
 # Asegurarse de que se pueda importar 'app'
 sys.path.append(os.path.dirname(__file__))
 
-from app.database.db import get_connection
+from  database.db import get_connection
 
 def main():
     try:

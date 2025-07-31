@@ -13,16 +13,16 @@ from fastapi import FastAPI, Request
 from starlette.middleware.cors import CORSMiddleware
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import Response  
-from app.settings import settings
+from  settings import settings
 
-from app.routes.route_personas import router as persona_router 
-from app.routes.route_sp_login import router as login_router
-from app.middlewares.logging_middleware import log_requests  
-from app.middlewares.ip_whitelist_middleware import ip_whitelist
-from app.helpers.error_handler import generic_exception_handler 
-from app.helpers.tools import get_client_ip 
-from app.settings import settings
-from app.database.db import get_connection  
+from  routes.route_personas import router as persona_router 
+from  routes.route_sp_login import router as login_router
+from  middlewares.logging_middleware import log_requests  
+from  middlewares.ip_whitelist_middleware import ip_whitelist
+from  helpers.error_handler import generic_exception_handler 
+from  helpers.tools import get_client_ip 
+from  settings import settings
+from  database.db import get_connection  
 
 
 

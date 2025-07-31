@@ -2,20 +2,21 @@ version: '3.9'
 
 services:
   lab-service:
+    image: api-1-lab-service             # ✅ Nombre fijo para que puedas hacer docker rmi
     build:
       context: .
-      dockerfile: Dockerfile.dev  # Asegurate que apunte al Dockerfile arriba
+      dockerfile: Dockerfile.dev
     container_name: api-lab-v1-dev
     env_file:
-      - .env.prod
+      - .env.local                       # ✅ Asegurate de usar el correcto aquí
     ports:
       - "3001:3001"
     networks:
       - backend
     volumes:
       - ./app:/app
-      - ./logs_host:/logs  # Montamos logs externos
-    command: uvicorn main:app --host 0.0.0.0 --port 3001 --reload --reload-dir /app
+      - ./logs_host:/logs
+    command: uvicorn app.main:app --host 0.0.0.0 --port 3001 --reload --reload-dir /app
 
 networks:
   backend:

@@ -1,7 +1,7 @@
 # app/db.py
 
 import pyodbc
-from settings import settings
+from  settings import settings
 
 def get_connection():
     conn_str = (

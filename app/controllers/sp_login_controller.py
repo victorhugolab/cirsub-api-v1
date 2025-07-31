@@ -1,9 +1,9 @@
 from fastapi import Request
-from app.helpers.tools import get_client_ip
-from app.database.db_helpers import ejecutar_sp
-from app.helpers.response_helper import success_response, error_response
-from app.helpers.logger import log_to_file
-from app.helpers.tools import parse_json
+from  helpers.tools import get_client_ip
+from  database.db_helpers import ejecutar_sp
+from  helpers.response_helper import success_response, error_response
+from  helpers.logger import log_to_file
+from  helpers.tools import parse_json
 
 async def sp_login(documento: int, request: Request):
     client_ip = get_client_ip(request)
