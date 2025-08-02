@@ -55,22 +55,7 @@ app.add_exception_handler(Exception, generic_exception_handler)
 app.include_router(persona_router, prefix="/api/v1")
 app.include_router(login_router , prefix="/api/v1")
 
-# Ejecutar sin parámetros
-#resultado, status = ejecutar_sp("SP_GetPersonas")
-# Ejecutar con parámetros
-#resultado, status = ejecutar_sp("SP_GetPersonaById", [1])
-#pip freeze > requirements.txt
-#docker-compose up -> para correr local
-#docker build -t api-lab-v1:latest .  -> regenera .tar
-#docker save -o api-lab-v1.tar api-lab-v1:latest -> guarda el .tar
 
-#| Acción               | Comando                                  |
-#| -------------------- | ---------------------------------------- |
-#| Levantar servicio    | `docker compose up -d lab-service`       |
-#| Ver logs             | `docker logs -f api-lab-v1` (contenedor) |
-#| Entrar al contenedor | `docker exec -it api-lab-v1 bash`        |
-#| Parar servicio       | `docker compose stop lab-service`        |
-#| Reiniciar servicio   | `docker compose restart lab-service`     |
 SECRET_KEY = "slayer" 
 
 @app.get("/")
@@ -148,3 +133,30 @@ async def db_test(request: Request):
             "status": "error",
             "error": str(e)
         }
+        
+        
+        
+        # Ejecutar sin parámetros
+#resultado, status = ejecutar_sp("SP_GetPersonas")
+# Ejecutar con parámetros
+#resultado, status = ejecutar_sp("SP_GetPersonaById", [1])
+#pip freeze > requirements.txt
+#docker-compose up -> para correr local
+#docker build -t api-lab-v1:latest .  -> regenera .tar
+#docker save -o api-lab-v1.tar api-lab-v1:latest -> guarda el .tar
+
+#| Acción               | Comando                                  |
+#| -------------------- | ---------------------------------------- |
+#| Levantar servicio    | `docker compose up -d lab-service`       |
+#| Ver logs             | `docker logs -f api-lab-v1` (contenedor) |
+#| Entrar al contenedor | `docker exec -it api-lab-v1 bash`        |
+#| Parar servicio       | `docker compose stop lab-service`        |
+#| Reiniciar servicio   | `docker compose restart lab-service`     |
+
+#subir a repo git
+#git add .
+#git commit -m "motivo..."
+#git push origin main
+#en el svr, bajar repo git
+#git clone http://git......
+#
