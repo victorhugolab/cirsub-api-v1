@@ -9,7 +9,7 @@ load_dotenv(".env.local")
 # Agregar app/ al path para que funcionen los imports absolutos
 sys.path.append(os.path.abspath(os.path.dirname(__file__)))
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, HTTPException, Request
 from starlette.middleware.cors import CORSMiddleware
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import Response  
@@ -23,15 +23,17 @@ from  helpers.error_handler import generic_exception_handler
 from  helpers.tools import get_client_ip 
 from  settings import settings
 from  database.db import get_connection  
+from fastapi.openapi.docs import get_swagger_ui_html
+from fastapi.responses import HTMLResponse
 
 
 
-app = FastAPI(title="API CIRSUBGNA-GESTION", version="1.0.0",
-    description="Departamento informática CIRSUB GNA. (Arangue, Lopes, Rial)",
+app = FastAPI(title="API CIRSUBGNA-GESTION", version="1.1.1",
+    description="Departamento informática CIRSUB GNA. (Arangue, Lopez, Rial (vhr))",
     contact={
         "name": "Soporte API",
         "email": "victorh.rial@cirsubgn.org",
-        })
+        },docs_url=None, redoc_url=None, openapi_url="/openapi.json")
 
 @app.get("/favicon.ico", include_in_schema=False)
 async def favicon():
@@ -69,14 +71,31 @@ app.include_router(login_router , prefix="/api/v1")
 #| Entrar al contenedor | `docker exec -it api-lab-v1 bash`        |
 #| Parar servicio       | `docker compose stop lab-service`        |
 #| Reiniciar servicio   | `docker compose restart lab-service`     |
-
+SECRET_KEY = "slayer" 
 
 @app.get("/")
 async def root(request: Request):
     ip_client = get_client_ip(request)
     environment = os.getenv("ENVIRONMENT", "desconocido")
-    return {"message": f"✅ CIRSUB - api-lab-v1 - IP env: {environment} - ipClient {ip_client}", "status": "ok"}
+    return {"message": f"✅ CIRSUB - api-lab-v1 - IP env: {environment} - ip-Client {ip_client}", "status": "ok"}
 
+@app.get("/docs", include_in_schema=False)
+async def custom_swagger_ui_html(request: Request):
+    # Validar el parámetro "key"
+    key = request.query_params.get("key")
+    if key != SECRET_KEY:
+        raise HTTPException(status_code=403, detail="Acceso no autorizado")
+
+    client_ip = request.client.host
+    html = get_swagger_ui_html(
+        openapi_url=app.openapi_url,
+        title=f"Documentación API - IP: {client_ip}",
+        swagger_favicon_url="https://fastapi.tiangolo.com/img/favicon.png"
+    )
+    return HTMLResponse(content=html.body.decode().replace(
+        "<title>Swagger UI</title>",
+        f"<title>API - {client_ip}</title>"
+    ), status_code=200)
 
 @app.get("/db-test")
 async def db_test(request: Request):
